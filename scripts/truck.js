@@ -16,6 +16,15 @@
 	console.log('Delivering order for ' + customerId);
 	this.db.remove(customerId);
     };
+
+    Truck.prototype.printOrders = function() {
+	var customerIDArray = Object.keys(this.db.getAll());
+
+	console.log('Truck #' + this.truckID + ' has pending orders:');
+	customerIDArray.forEach(function(id) {
+	    console.log(this.db.get(id));
+	}.bind(this));
+    };
     
     App.Truck = Truck;
     window.App = App;
