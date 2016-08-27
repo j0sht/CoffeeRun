@@ -12,6 +12,20 @@
 	if (this.$formElement.length === 0) {
 	    throw new Error('Could not find element with selector: ' + selector);
 	}
+	var $sliderLabel = $('[for="strengthLevel"]');
+	var $slider = $('#strengthLevel');
+	console.log($slider);
+	$sliderLabel.text("Caffeine rating: " + $slider[0].value);
+	$slider.on('change', function(event) {
+	    if (event.target.valueAsNumber > 66) {
+		$sliderLabel.css('color', 'red');
+	    } else if (event.target.valueAsNumber > 33) {
+		$sliderLabel.css('color', '#FFD842');
+	    } else {
+		$sliderLabel.css('color', 'green');
+	    }
+	    $sliderLabel.text("Caffeine rating: " + event.target.value);
+	});
     }
 
     FormHandler.prototype.addSubmitHandler = function(fn) {
