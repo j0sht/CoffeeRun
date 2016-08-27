@@ -2,6 +2,10 @@
     'use strict';
     var App = window.App || {};
     var $ = window.jQuery;
+    var $sliderLabel = $('[for="strengthLevel"]');
+    var $slider = $('#strengthLevel');
+    var START_VAL = $slider[0].valueAsNumber;
+    updateLabelWithValue(START_VAL);
     
     function FormHandler(selector) {
 	// Code will go here
@@ -12,14 +16,11 @@
 	if (this.$formElement.length === 0) {
 	    throw new Error('Could not find element with selector: ' + selector);
 	}
-	var $sliderLabel = $('[for="strengthLevel"]');
-	var $slider = $('#strengthLevel');
-	var sliderValue = $slider[0].valueAsNumber;
-	$sliderLabel.text("Caffeine rating: " + sliderValue);
-	changeLabelColor($sliderLabel, sliderValue);
+	this.$formElement.bind('reset', function() {
+	    updateLabelWithValue(START_VAL);
+	});
 	$slider.on('change', function(event) {
-	    changeLabelColor($sliderLabel, event.target.valueAsNumber);
-	    $sliderLabel.text("Caffeine rating: " + event.target.value);
+	    updateLabelWithValue(event.target.valueAsNumber);
 	});
     }
 
@@ -49,6 +50,11 @@
 	    color = 'green';
 	}
 	$label.css('color', color);
+    }
+
+    function updateLabelWithValue(val) {
+	$sliderLabel.text("Caffeine rating: " + val);
+	changeLabelColor($sliderLabel, val);
     }
 
     App.FormHandler = FormHandler;
