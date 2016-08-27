@@ -12,15 +12,6 @@
 	if (this.$formElement.length === 0) {
 	    throw new Error('Could not find element with selector: ' + selector);
 	}
-	var $sliderLabel = $('[for="strengthLevel"]');
-	var $slider = $('#strengthLevel');
-	var sliderValue = $slider[0].valueAsNumber;
-	$sliderLabel.text("Caffeine rating: " + sliderValue);
-	changeLabelColor($sliderLabel, sliderValue);
-	$slider.on('change', function(event) {
-	    changeLabelColor($sliderLabel, event.target.valueAsNumber);
-	    $sliderLabel.text("Caffeine rating: " + event.target.value);
-	});
     }
 
     FormHandler.prototype.addSubmitHandler = function(fn) {
@@ -38,18 +29,6 @@
 	    this.elements[0].focus();
 	});
     };
-
-    function changeLabelColor($label, num) {
-	var color;
-	if (num > 66) {
-	    color = 'red';
-	} else if (num > 33) {
-	    color = '#FFD842';
-	} else {
-	    color = 'green';
-	}
-	$label.css('color', color);
-    }
 
     App.FormHandler = FormHandler;
     window.App = App;
