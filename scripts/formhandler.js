@@ -14,16 +14,11 @@
 	}
 	var $sliderLabel = $('[for="strengthLevel"]');
 	var $slider = $('#strengthLevel');
-	console.log($slider);
-	$sliderLabel.text("Caffeine rating: " + $slider[0].value);
+	var sliderValue = $slider[0].valueAsNumber;
+	$sliderLabel.text("Caffeine rating: " + sliderValue);
+	changeLabelColor($sliderLabel, sliderValue);
 	$slider.on('change', function(event) {
-	    if (event.target.valueAsNumber > 66) {
-		$sliderLabel.css('color', 'red');
-	    } else if (event.target.valueAsNumber > 33) {
-		$sliderLabel.css('color', '#FFD842');
-	    } else {
-		$sliderLabel.css('color', 'green');
-	    }
+	    changeLabelColor($sliderLabel, event.target.valueAsNumber);
 	    $sliderLabel.text("Caffeine rating: " + event.target.value);
 	});
     }
@@ -43,6 +38,18 @@
 	    this.elements[0].focus();
 	});
     };
+
+    function changeLabelColor($label, num) {
+	var color;
+	if (num > 66) {
+	    color = 'red';
+	} else if (num > 33) {
+	    color = '#FFD842';
+	} else {
+	    color = 'green';
+	}
+	$label.css('color', color);
+    }
 
     App.FormHandler = FormHandler;
     window.App = App;
