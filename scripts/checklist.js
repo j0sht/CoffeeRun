@@ -15,9 +15,38 @@
 	}
     }
 
+    CheckList.prototype.addRow = function(coffeeOrder) {
+	var rowElement = new Row(coffeeOrder);
+	this.$element.append(rowElement.$element);
+    };
+    
     // Row(cO) is a private function; not exported to the App namespace
-    function Row(coffeOrder) {
+    function Row(coffeeOrder) {
+	var $div = $('<div></div>', {
+	    'data-coffee-order': 'checkbox',
+	    'class': 'checkbox'
+	});
 
+	var $label = $('<label></label>');
+
+	var $checkbox = $('<input></input>', {
+	    type: 'checkbox',
+	    value: coffeeOrder.emailAddress
+	});
+
+	var description = coffeeOrder.size + ' ';
+	if (coffeeOrder.flavor) {
+	    description += coffeeOrder.flavor + ' ';
+	}
+	description += coffeeOrder.coffee + ', ';
+	description += ' (' + coffeeOrder.emailAddress + ')';
+	description += ' [' + coffeeOrder.strength + 'X]';
+
+	$label.append($checkbox);
+	$label.append(description);
+	$div.append($label);
+
+	this.$element = $div;
     }
     
     App.CheckList = CheckList;
