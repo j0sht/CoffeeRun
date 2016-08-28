@@ -15,9 +15,28 @@
 	}
     }
 
+    CheckList.prototype.addClickHandler = function(fn) {
+	this.$element.on('click', 'input', function(event) {
+	    var email = event.target.value;
+	    this.removeRow(email);
+	    fn(email);
+	}.bind(this));
+    };
+    
     CheckList.prototype.addRow = function(coffeeOrder) {
+	// Remove existing rows that match the email address
+	this.removeRow(coffeeOrder.emailAddress);
+	// Create new Row
 	var rowElement = new Row(coffeeOrder);
+	// Append to CheckList $element
 	this.$element.append(rowElement.$element);
+    };
+
+    CheckList.prototype.removeRow = function(email) {
+	this.$element
+	    .find('[value="' + email + '"]')
+	    .closest('[data-coffee-order="checkbox"]')
+	    .remove();
     };
     
     // Row(cO) is a private function; not exported to the App namespace
