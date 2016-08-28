@@ -3,6 +3,11 @@
 
     var App = window.App || {};
     var $ = window.jQuery;
+    var FLAVOR_COLORS = {
+	'caramel': '#E89854',
+	'almond': '#B27D21',
+	'mocha': '#B25E12'
+    };
 
     function CheckList(selector) {
 	if (!selector) {
@@ -55,6 +60,7 @@
 
 	var description = coffeeOrder.size + ' ';
 	if (coffeeOrder.flavor) {
+	    $label.css('color', FLAVOR_COLORS[coffeeOrder.flavor]);
 	    description += coffeeOrder.flavor + ' ';
 	}
 	description += coffeeOrder.coffee + ', ';
