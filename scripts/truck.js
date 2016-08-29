@@ -17,6 +17,10 @@
 	this.db.remove(customerId);
     };
 
+    Truck.prototype.getOrder = function(email) {
+	return this.db.get(email);
+    };
+
     Truck.prototype.printOrders = function() {
 	var customerIDArray = Object.keys(this.db.getAll());
 

@@ -3,8 +3,9 @@
 
     var App = window.App || {};
     var $ = window.jQuery;
+    var ef;
 
-    function CheckList(selector) {
+    function CheckList(selector, editFunction) {
 	if (!selector) {
 	    throw new Error('No selector provided');
 	}
@@ -13,6 +14,8 @@
 	if (this.$element.length === 0) {
 	    throw new Error('Could not find element with selector: ' + selector);
 	}
+
+	ef = editFunction;
     }
 
     CheckList.prototype.addClickHandler = function(fn) {
@@ -63,8 +66,16 @@
 
 	$label.append($checkbox);
 	$label.append(description);
-	$div.append($label);
 
+	var $editButton = $('<button></button>', {
+	    'class': 'btn btn-default'
+	});
+	$editButton.text('Edit');
+	$editButton.on('click', function(event) {
+	    ef(coffeeOrder.emailAddress);
+	});
+	$div.append($label);
+	$div.append($editButton);
 	this.$element = $div;
     }
     

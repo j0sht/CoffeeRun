@@ -9,10 +9,12 @@
     var CheckList = App.CheckList;
     var myTruck = new Truck('ncc-1701', new DataStore());
     window.myTruck = myTruck;
-    var checkList = new CheckList(CHECKLIST_SELECTOR);
-    checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
     var formHandler = new FormHandler(FORM_SELECTOR);
-
+    var ef = function(email) {
+	formHandler.fillFormWithData(myTruck.getOrder(email));
+    }
+    var checkList = new CheckList(CHECKLIST_SELECTOR, ef);
+    checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
     formHandler.addSubmitHandler(function(data) {
 	myTruck.createOrder.call(myTruck, data);
 	checkList.addRow.call(checkList, data);
