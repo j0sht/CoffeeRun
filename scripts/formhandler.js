@@ -30,6 +30,22 @@
 	});
     };
 
+    FormHandler.prototype.fillFormWithData = function(data) {
+	for (var prop in data) {
+	    console.log(prop);
+	    if (data.hasOwnProperty(prop)) {
+		var $e;
+		if (prop === 'size') {
+		    $e = this.$formElement.find('[value="' + data[prop] + '"]');
+		    if ($e) { $e.prop('checked', true); }
+		} else {
+		    $e = this.$formElement.find('[name="' + prop + '"]')
+		    if ($e) { $e.val(data[prop]); }
+		}
+	    }
+	}
+    };
+
     App.FormHandler = FormHandler;
     window.App = App;
 })(window);
