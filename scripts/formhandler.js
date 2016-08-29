@@ -47,7 +47,6 @@
     FormHandler.prototype.addDecafHandler = function(fn) {
 	var message = 'decaf cannot have a higher caffeine level that 20';
 	var coffeeField;
-	console.log(coffeeField);
 	this.$formElement.on('input', '[name="coffee"]', function(event) {
 	    coffeeField = event.target;
 	    var data = {}
@@ -70,9 +69,10 @@
 		}
 	    });
 	    if (fn(data.coffee, data.strength)) {
-		coffeeField.setCustomValidity('');
+		if (coffeeField) { coffeeField.setCustomValidity(''); }
+		event.target.setCustomValidity('');
 	    } else {
-		coffeeField.setCustomValidity(message);
+		event.target.setCustomValidity(message);
 	    }
 	}.bind(this));
     }

@@ -11,7 +11,12 @@
 	},
 
 	validDecaf: function(coffee, strength) {
-	    return /decaf/.test(coffee) && (strength < 20);
+	    if (/decaf/.test(coffee)) {
+		if (strength > 20) {
+		    return false;
+		}
+	    }
+	    return true;
 	}
     };
 
