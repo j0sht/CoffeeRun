@@ -32,7 +32,6 @@
 
     FormHandler.prototype.fillFormWithData = function(data) {
 	for (var prop in data) {
-	    console.log(prop);
 	    if (data.hasOwnProperty(prop)) {
 		var $e;
 		if (prop === 'size') {
