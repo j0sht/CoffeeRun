@@ -8,6 +8,10 @@
 	    // .+ == one or more characters
 	    // @bignerdranch\.com$ == $ indicates @...com must appear at the end
 	    return /.+@bignerdranch\.com$/.test(email);
+	},
+
+	validDecaf: function(coffee, strength) {
+	    return /decaf/.test(coffee) && (strength < 20);
 	}
     };
 

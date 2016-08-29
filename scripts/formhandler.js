@@ -43,6 +43,39 @@
 	    }
 	});
     };
+
+    FormHandler.prototype.addDecafHandler = function(fn) {
+	var message = 'decaf cannot have a higher caffeine level that 20';
+	var coffeeField;
+	console.log(coffeeField);
+	this.$formElement.on('input', '[name="coffee"]', function(event) {
+	    coffeeField = event.target;
+	    var data = {}
+	    this.$formElement.serializeArray().forEach(function(item) {
+		if (item.name === 'coffee' || item.name === 'strength') {
+		    data[item.name] = item.value;
+		}
+	    });
+	    if (fn(data.coffee, data.strength)) {
+		event.target.setCustomValidity('');
+	    } else {
+		event.target.setCustomValidity(message);
+	    }
+	}.bind(this));
+	this.$formElement.on('change', '[name="strength"]', function(event) {
+	    var data = {}
+	    this.$formElement.serializeArray().forEach(function(item) {
+		if (item.name === 'coffee' || item.name === 'strength') {
+		    data[item.name] = item.value;
+		}
+	    });
+	    if (fn(data.coffee, data.strength)) {
+		coffeeField.setCustomValidity('');
+	    } else {
+		coffeeField.setCustomValidity(message);
+	    }
+	}.bind(this));
+    }
     
     App.FormHandler = FormHandler;
     window.App = App;
