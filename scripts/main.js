@@ -22,9 +22,11 @@
     var checkList = new CheckList(CHECKLIST_SELECTOR);
     checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
     formHandler.addSubmitHandler(function(data) {
-	registeredEmails.push(data.emailAddress);
 	myTruck.createOrder.call(myTruck, data);
 	checkList.addRow.call(checkList, data);
+	remoteDS.getAll('', function(resp) {
+	    registeredEmails = Object.keys(resp);
+	});
     });
     formHandler.addInputHandler(Validation.isCompanyEmail, function(email) {
 	console.log(registeredEmails.length);
