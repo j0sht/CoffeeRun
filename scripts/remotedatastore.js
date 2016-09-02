@@ -39,6 +39,21 @@
 	    type: 'DELETE'
 	});
     };
+
+    RemoteDataStore.prototype.connectionExists = function() {
+	var xhr = new XMLHttpRequest();
+	xhr.open('HEAD', this.serverURL, false);
+	try {
+	    xhr.send();
+	    if (xhr.status >= 200 && xhr.status < 304) {
+		return true;
+	    } else {
+		return false;
+	    }
+	} catch (e) {
+	    return false;
+	}
+    };
     
     App.RemoteDataStore = RemoteDataStore;
     window.App = App;

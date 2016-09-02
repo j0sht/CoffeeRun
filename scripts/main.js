@@ -11,7 +11,12 @@
     var CheckList = App.CheckList;
     var RemoteDataStore = App.RemoteDataStore;
     var remoteDS = new RemoteDataStore(SERVER_URL);
-    var myTruck = new Truck('ncc-1701', remoteDS);
+    var myTruck;
+    if (remoteDS.connectionExists()) {
+	myTruck = new Truck('ncc-1701', remoteDS);
+    } else {
+	myTruck = new Truck('ncc-1701', new DataStore());
+    }
     window.myTruck = myTruck;
     var checkList = new CheckList(CHECKLIST_SELECTOR);
     checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
