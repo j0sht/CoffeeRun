@@ -41,8 +41,9 @@
     };
 
     RemoteDataStore.prototype.connectionExists = function() {
-	var xhr = new XMLHttpRequest();
-	xhr.open('HEAD', this.serverURL, false);
+	// Code from https://www.kirupa.com/html5/check_if_internet_connection_exists_in_javascript.htm
+	var xhr = new XMLHttpRequest(); 
+	xhr.open('HEAD', this.serverURL, false); // synchronous XMLHttpRequest deprecated
 	try {
 	    xhr.send();
 	    if (xhr.status >= 200 && xhr.status < 304) {
